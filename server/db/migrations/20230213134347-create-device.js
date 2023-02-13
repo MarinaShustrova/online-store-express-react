@@ -7,25 +7,30 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
       },
       price: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       rating: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
       img: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       typeid: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       brandid: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
