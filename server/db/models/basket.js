@@ -1,12 +1,12 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Basket extends Model {
     static associate(models) {
-    Basket.belongsTo(models.User);
-    Basket.hasMany(models.BasketDevice);
+      Basket.belongsTo(models.User, { foreignKey: 'user_id' });
+      Basket.hasMany(models.BasketDevice, { foreignKey: 'basket_id' });
     }
   }
   Basket.init({

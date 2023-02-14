@@ -5,11 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Device extends Model {
     static associate(models) {
-      Device.belongsTo(models.Type);
-      Device.belongsTo(models.Brand);
-      Device.hasMany(models.Rating);
-      Device.hasMany(models.BasketDevice);
-      Device.hasMany(models.DeviceInfo, {as: 'info'});
+      Device.belongsTo(models.Type, { foreignKey: 'type_id' });
+      Device.belongsTo(models.Brand, { foreignKey: 'brand_id' });
+      Device.hasMany(models.Rating, { foreignKey: 'device_id' });
+      Device.hasMany(models.BasketDevice, { foreignKey: 'device_id' });
+      Device.hasMany(models.DeviceInfo, { as: 'info' }, { foreignKey: 'device_id' });
     }
   }
   Device.init({
