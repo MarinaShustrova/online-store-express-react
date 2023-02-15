@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable consistent-return */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -28,16 +29,23 @@ class UserController {
     return res.json({ token });
   }
 
-  async login(req, res) {
-
+  async login(req, res, next) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return next(ApiError.internal('user not found'));
+    }
+    const comparePassword = bcrypt.compareSync(password, user.password);
+    if (!comparePassword) {
+      return next(ApiError.internal('incorrect password'));
+    }
+    const token = generateJwt(user.id, user.email, user.role);
+    return res.json({ token });
   }
 
   async check(req, res, next) {
-    const { id } = req;
-    if (!id) {
-      return next(ApiError.badRequest('No matching user id'));
-    }
-    res.json(id);
+    const token = generateJwt(req.user.id, req.user.email, req.user.role);
+    return res.json({ token });
   }
 }
 
