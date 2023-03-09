@@ -1,3 +1,7 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable consistent-return */
+/* eslint-disable no-const-assign */
+/* eslint-disable class-methods-use-this */
 //* class используется для группировки
 const uuid = require('uuid');
 const path = require('path');
@@ -37,8 +41,8 @@ class DeviceController {
     const {
       brandId, typeId, limit, page,
     } = req.query;
-    page = page || 1;
-    limit = limit || 10;
+    // let page = page || 1;
+    // limit = limit || 10;
     const offset = page * limit - limit;
     let devices;
     if (!brandId && !typeId) {
